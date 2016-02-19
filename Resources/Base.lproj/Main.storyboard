@@ -162,14 +162,39 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HAY-1s-9dP">
+                                <rect key="frame" x="150" y="82" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="K9w-dZ-7TF"/>
+                                    <constraint firstAttribute="width" constant="300" id="y32-eu-VoN"/>
+                                </constraints>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3w-Cm-BVh">
+                                <rect key="frame" x="150" y="402" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="UWw-6P-s1w"/>
+                                    <constraint firstAttribute="width" constant="300" id="ZOe-iv-sZt"/>
+                                </constraints>
+                                <state key="normal" title="Call an Uber"/>
+                                <connections>
+                                    <action selector="callAnUber:" destination="8z9-jh-FlK" eventType="touchUpInside" id="gjK-Dr-g38"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Flk-p3-04Q" firstAttribute="top" secondItem="IKO-A3-XMt" secondAttribute="topMargin" constant="20" id="046-qS-3xs"/>
+                            <constraint firstItem="HAY-1s-9dP" firstAttribute="top" secondItem="Flk-p3-04Q" secondAttribute="bottom" constant="18" id="NlP-n9-Ma8"/>
+                            <constraint firstItem="x3w-Cm-BVh" firstAttribute="centerX" secondItem="IKO-A3-XMt" secondAttribute="centerX" id="XNx-k2-yjs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Flk-p3-04Q" secondAttribute="trailing" constant="-20" id="a1j-fn-Bnc"/>
+                            <constraint firstItem="x3w-Cm-BVh" firstAttribute="top" secondItem="HAY-1s-9dP" secondAttribute="bottom" constant="20" id="bSb-bn-11S"/>
                             <constraint firstItem="Flk-p3-04Q" firstAttribute="leading" secondItem="IKO-A3-XMt" secondAttribute="leadingMargin" constant="-20" id="obu-WE-ctf"/>
+                            <constraint firstItem="HAY-1s-9dP" firstAttribute="centerX" secondItem="IKO-A3-XMt" secondAttribute="centerX" id="xBA-iA-DSD"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="map" destination="HAY-1s-9dP" id="efk-i4-KKb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ukE-4l-5Zu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
