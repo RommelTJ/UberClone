@@ -42,10 +42,20 @@ class RiderViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //Set the map region to current location
         let locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
         let center = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
         let span = MKCoordinateSpanMake(0.01, 0.01)
         let region = MKCoordinateRegion(center: center, span: span)
         self.map.setRegion(region, animated: true)
+        
+        //Add a pin to user location.
+        self.map.removeAnnotations(self.map.annotations)
+        let pinLocation = CLLocationCoordinate2DMake(locValue.latitude, locValue.longitude)
+        let objectAnnotation = MKPointAnnotation()
+        objectAnnotation.coordinate = pinLocation
+        objectAnnotation.title = "My Location"
+        self.map.addAnnotation(objectAnnotation)
+        
     }
 }
