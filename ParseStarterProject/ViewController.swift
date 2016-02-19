@@ -33,6 +33,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.username.delegate = self
         self.password.delegate = self
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        if PFUser.currentUser()?.username != nil {
+            self.performSegueWithIdentifier("loginRiderSegue", sender: self)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,15 +61,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     if let error = error {
                         let errorString = error.userInfo["error"] as? String
                         self.displayAlert("Sign Up Failed", message: errorString!)
-                        // Show the errorString somewhere and let the user try again.
                     } else {
-                        print("Succesful!")
+                        self.performSegueWithIdentifier("loginRiderSegue", sender: self)
                     }
                 }
             } else {
                 PFUser.logInWithUsernameInBackground(username.text!, password: password.text!, block: { (user: PFUser?, error: NSError?) -> Void in
                     if user != nil {
-                        print("Log in successful")
+                        self.performSegueWithIdentifier("loginRiderSegue", sender: self)
                     } else {
                         if let errorString = error?.userInfo["error"] as? String {
                             self.displayAlert("Log In Failed", message: errorString)
