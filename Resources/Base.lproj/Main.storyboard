@@ -193,6 +193,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="callAnUberButton" destination="x3w-Cm-BVh" id="mfo-Aa-G3H"/>
                         <outlet property="map" destination="HAY-1s-9dP" id="efk-i4-KKb"/>
                     </connections>
                 </viewController>
