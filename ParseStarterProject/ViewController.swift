@@ -39,6 +39,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func doSignUp(sender: AnyObject) {
         if username.text == "" || password.text == "" {
             displayAlert("Missing Field(s)", message: "Username and password are required.")
+        } else {
+            //Sign up user
+            let user = PFUser()
+            user.username = self.username.text
+            user.password = self.password.text
+            user["isDriver"] = self.`switch`.on
+            
+            user.signUpInBackgroundWithBlock {
+                (succeeded: Bool, error: NSError?) -> Void in
+                if let error = error {
+                    let errorString = error.userInfo["error"] as? String
+                    self.displayAlert("Sign Up Failed", message: errorString!)
+                    // Show the errorString somewhere and let the user try again.
+                } else {
+                    print("Succesful!")
+                }
+            }
         }
     }
     
