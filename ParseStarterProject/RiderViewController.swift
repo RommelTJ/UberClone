@@ -43,6 +43,9 @@ class RiderViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        let center = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
+        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let region = MKCoordinateRegion(center: center, span: span)
+        self.map.setRegion(region, animated: true)
     }
 }
