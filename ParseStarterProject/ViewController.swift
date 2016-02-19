@@ -46,17 +46,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let user = PFUser()
             user.username = self.username.text
             user.password = self.password.text
-            user["isDriver"] = self.`switch`.on
             
-            user.signUpInBackgroundWithBlock {
-                (succeeded: Bool, error: NSError?) -> Void in
-                if let error = error {
-                    let errorString = error.userInfo["error"] as? String
-                    self.displayAlert("Sign Up Failed", message: errorString!)
-                    // Show the errorString somewhere and let the user try again.
-                } else {
-                    print("Succesful!")
+            if signUpState == true {
+                user["isDriver"] = self.`switch`.on
+                
+                user.signUpInBackgroundWithBlock {
+                    (succeeded: Bool, error: NSError?) -> Void in
+                    if let error = error {
+                        let errorString = error.userInfo["error"] as? String
+                        self.displayAlert("Sign Up Failed", message: errorString!)
+                        // Show the errorString somewhere and let the user try again.
+                    } else {
+                        print("Succesful!")
+                    }
                 }
+            } else {
+                PFUser.logInWithUsernameInBackground(username.text!, password: password.text!, block: { (user: PFUser?, error: NSError?) -> Void in
+                    if user != nil {
+                        print("Log in successful")
+                    } else {
+                        if let errorString = error?.userInfo["error"] as? String {
+                            self.displayAlert("Log In Failed", message: errorString)
+                        }
+                    }
+                })
             }
         }
     }
