@@ -12,6 +12,8 @@ import Parse
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
+    //Properties
+    var signUpState = true
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var `switch`: UISwitch!
@@ -60,7 +62,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func doToggleSignup(sender: AnyObject) {
-        
+        if signUpState == true {
+            signUpButton.setTitle("Log In", forState: .Normal)
+            toggleSignupButton.setTitle("Switch to Sign Up", forState: .Normal)
+            riderLabel.alpha = 0
+            driverLabel.alpha = 0
+            `switch`.alpha = 0
+            signUpState = false
+        } else {
+            signUpButton.setTitle("Sign Up", forState: .Normal)
+            toggleSignupButton.setTitle("Switch to Log In", forState: .Normal)
+            riderLabel.alpha = 1
+            driverLabel.alpha = 1
+            `switch`.alpha = 1
+            signUpState = true
+        }
     }
     
     func displayAlert(title: String, message: String) {

@@ -76,9 +76,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOr-e7-gwH">
-                                <rect key="frame" x="245" y="333" width="110" height="30"/>
+                                <rect key="frame" x="155" y="333" width="291" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="fAf-EB-51a"/>
+                                    <constraint firstAttribute="width" constant="291" id="fAf-EB-51a"/>
                                     <constraint firstAttribute="height" constant="30" id="uUU-sZ-V0d"/>
                                 </constraints>
                                 <state key="normal" title="Switch to Log In"/>
