@@ -18,6 +18,7 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
     var locationManager: CLLocationManager!
     var latitude: CLLocationDegrees!
     var longitude: CLLocationDegrees!
+    var distances: [CLLocationDistance] = [CLLocationDistance]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,6 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
-        
         
     }
 
@@ -52,11 +51,10 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        cell.textLabel?.text = usernames[indexPath.row]
-                                + " "
-                                + String(locations[indexPath.row].latitude)
-                                + ", "
-                                + String(locations[indexPath.row].longitude)
+        let distance = Double(distances[indexPath.row])
+        let roundedDistance = Double(round(distance * 10) / 10)
+        let distanceString = String(roundedDistance)
+        cell.textLabel?.text = "\(usernames[indexPath.row]): \(distanceString)km away"
         return cell
     }
 
@@ -81,7 +79,12 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
                             self.usernames.append(username)
                         }
                         if let point = object["location"] as? PFGeoPoint {
-                            self.locations.append(CLLocationCoordinate2DMake(point.latitude, point.longitude))
+                            let requestLocation = CLLocationCoordinate2DMake(point.latitude, point.longitude)
+                            self.locations.append(requestLocation)
+                            let requestCLLocation = CLLocation(latitude: requestLocation.latitude, longitude: requestLocation.longitude)
+                            let driverCLLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
+                            let distance = driverCLLocation.distanceFromLocation(requestCLLocation)
+                            self.distances.append(distance/1000) //distance is in meters. Divide by 1000 to get km.
                         }
                     }
                     self.tableView.reloadData()
