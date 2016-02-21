@@ -129,6 +129,7 @@
                         <outlet property="toggleSignupButton" destination="yOr-e7-gwH" id="dY7-xy-zFL"/>
                         <outlet property="username" destination="H1A-0S-dyf" id="SP2-we-Hca"/>
                         <segue destination="8z9-jh-FlK" kind="show" identifier="loginRiderSegue" id="AlB-NP-4Ch"/>
+                        <segue destination="T4I-dn-tXJ" kind="show" identifier="loginDriverSegue" id="bJe-eY-KSA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -201,5 +202,59 @@
             </objects>
             <point key="canvasLocation" x="1157" y="-5"/>
         </scene>
+        <!--Requests-->
+        <scene sceneID="5Jq-7h-ZyN">
+            <objects>
+                <tableViewController id="1mg-SS-ytu" customClass="DriverTableViewController" customModule="UberClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7eh-dF-Qh1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Flu-Qc-zN5">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Flu-Qc-zN5" id="LIb-kn-lZN">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1mg-SS-ytu" id="1tK-yV-Fq3"/>
+                            <outlet property="delegate" destination="1mg-SS-ytu" id="mXA-xk-3ip"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Requests" id="Mp6-au-ugo">
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="tqc-Fz-G5n">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="logoutDriverSegue" id="5uG-kN-VQp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hk2-QE-s2e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1977" y="779"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7ra-Rw-64g">
+            <objects>
+                <navigationController id="T4I-dn-tXJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JeW-OF-Hda">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="1mg-SS-ytu" kind="relationship" relationship="rootViewController" id="KRW-ZO-4fe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qkt-WL-8KZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1157" y="779"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="5uG-kN-VQp"/>
+    </inferredMetricsTieBreakers>
 </document>
