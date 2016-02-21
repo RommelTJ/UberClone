@@ -102,6 +102,11 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
         if segue.identifier == "logoutDriverSegue" {
             navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: false)
             PFUser.logOut()
+        } else if segue.identifier == "showViewRequestsSegue" {
+            if let destination = segue.destinationViewController as? RequestViewController {
+                destination.requestLocation = locations[(tableView.indexPathForSelectedRow?.row)!]
+                destination.requestUsername = usernames[(tableView.indexPathForSelectedRow?.row)!]
+            }
         }
     }
 
