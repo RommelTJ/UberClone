@@ -8,17 +8,37 @@
 
 import UIKit
 import Parse
+import MapKit
 
-class DriverTableViewController: UITableViewController {
+class DriverTableViewController: UITableViewController, CLLocationManagerDelegate {
 
+    //Properties
+    var usernames = [String]()
+    var locations = [CLLocationCoordinate2D]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        let query = PFQuery(className:"RiderRequest")
+        query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                //Successfully retrieved objects.
+                if let objects = objects {
+                    for object in objects {
+                        if let username = object["username"] as? String {
+                            self.usernames.append(username)
+                        }
+                        if let point = object["location"] as? PFGeoPoint {
+                            self.locations.append(CLLocationCoordinate2DMake(point.latitude, point.longitude))
+                        }
+                    }
+                    self.tableView.reloadData()
+                }
+            } else {
+                print("Error: \(error), \(error?.userInfo)")
+            }
+        })
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,23 +50,19 @@ class DriverTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return usernames.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        cell.textLabel?.text = usernames[indexPath.row]
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
