@@ -52,6 +52,26 @@ class RequestViewController: UIViewController, CLLocationManagerDelegate {
                             } else if let riderRequest = object {
                                 riderRequest["driverResponse"] = PFUser.currentUser()?.username!
                                 riderRequest.saveInBackground()
+                                
+                                //Launch Apple Maps directions to location.
+                                let requestCLLocation = CLLocation(latitude: self.requestLocation.latitude, longitude: self.requestLocation.longitude)
+                                CLGeocoder().reverseGeocodeLocation(requestCLLocation, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+                                    if error != nil {
+                                        print("Error: \(error)")
+                                    } else {
+                                        if placemarks?.count > 0 {
+                                            let placemark = placemarks![0] as CLPlacemark
+                                            let mkPlacemark = MKPlacemark(placemark: placemark)
+                                            let mapItem = MKMapItem(placemark: mkPlacemark)
+                                            mapItem.name = "\(self.requestUsername)"
+                                            //You could also choode: MKLaunchOptionsDirectionsModeWalking
+                                            let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+                                            mapItem.openInMapsWithLaunchOptions(launchOptions)
+                                        } else {
+                                            print("No placemarks received from CLGeocoder")
+                                        }
+                                    }
+                                })
                             }
                         })
                     }

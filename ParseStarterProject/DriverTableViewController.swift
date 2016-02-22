@@ -75,7 +75,7 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
                     self.usernames.removeAll()
                     self.locations.removeAll()
                     for object in objects {
-                        if object["driverResponse"] == nil {
+                        if object["driverResponse"] == nil || object["driverResponse"] as? String == "" {
                             if let username = object["username"] as? String {
                                 self.usernames.append(username)
                             }
