@@ -18,8 +18,18 @@ class RequestViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(requestUsername)
-        print(requestLocation)
+        
+        //Set the map to the request location.
+        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let region = MKCoordinateRegion(center: requestLocation, span: span)
+        self.map.setRegion(region, animated: true)
+        
+        //Add a pin to user location.
+        let objectAnnotation = MKPointAnnotation()
+        objectAnnotation.coordinate = requestLocation
+        objectAnnotation.title = "\(requestUsername)"
+        self.map.addAnnotation(objectAnnotation)
+        
     }
 
     override func didReceiveMemoryWarning() {
