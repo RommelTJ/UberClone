@@ -64,6 +64,37 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
         latitude = locValue.latitude
         longitude = locValue.longitude
         
+        //Query for Uploading location of driver to Parse so Rider can see where the driver is.
+        let driverQuery = PFQuery(className:"DriverLocation")
+        driverQuery.whereKey("username", equalTo: (PFUser.currentUser()?.username)!)
+        driverQuery.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                if let objects = objects {
+                    if objects.count > 0 {
+                        for object in objects {
+                            let query = PFQuery(className: "DriverLocation")
+                            query.getObjectInBackgroundWithId(object.objectId!, block: { (object: PFObject?, error: NSError?) -> Void in
+                                if error != nil {
+                                    print("error: \(error)")
+                                } else if let driverRequest = object {
+                                    driverRequest["driverLocation"] = PFGeoPoint(latitude: self.latitude, longitude: self.longitude)
+                                    driverRequest.saveInBackground()
+                                }
+                            })
+                        }
+                    } else {
+                        //No object found. Save to Parse.
+                        let driverLocation = PFObject(className: "DriverLocation")
+                        driverLocation["username"] = PFUser.currentUser()?.username
+                        driverLocation["driverLocation"] = PFGeoPoint(latitude: self.latitude, longitude: self.longitude)
+                        driverLocation.saveInBackground()
+                    }
+                }
+            } else {
+                print("Error: \(error), \(error?.userInfo)")
+            }
+        })
+        
         //Query for Rider Requests and Update Table.
         let query = PFQuery(className:"RiderRequest")
         query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude))
