@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Parse
 
 class RequestViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -37,7 +38,28 @@ class RequestViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func pickUpRider(sender: AnyObject) {
-        //TODO
+        //Query for the request in Parse.
+        let query = PFQuery(className:"RiderRequest")
+        query.whereKey("username", equalTo: requestUsername)
+        query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                if let objects = objects {
+                    for object in objects {
+                        let query = PFQuery(className: "RiderRequest")
+                        query.getObjectInBackgroundWithId(object.objectId!, block: { (object: PFObject?, error: NSError?) -> Void in
+                            if error != nil {
+                                print("error: \(error)")
+                            } else if let riderRequest = object {
+                                riderRequest["driverResponse"] = PFUser.currentUser()?.username!
+                                riderRequest.saveInBackground()
+                            }
+                        })
+                    }
+                }
+            } else {
+                print("Error: \(error), \(error?.userInfo)")
+            }
+        })
     }
 
 }

@@ -75,16 +75,18 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
                     self.usernames.removeAll()
                     self.locations.removeAll()
                     for object in objects {
-                        if let username = object["username"] as? String {
-                            self.usernames.append(username)
-                        }
-                        if let point = object["location"] as? PFGeoPoint {
-                            let requestLocation = CLLocationCoordinate2DMake(point.latitude, point.longitude)
-                            self.locations.append(requestLocation)
-                            let requestCLLocation = CLLocation(latitude: requestLocation.latitude, longitude: requestLocation.longitude)
-                            let driverCLLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
-                            let distance = driverCLLocation.distanceFromLocation(requestCLLocation)
-                            self.distances.append(distance/1000) //distance is in meters. Divide by 1000 to get km.
+                        if object["driverResponse"] == nil {
+                            if let username = object["username"] as? String {
+                                self.usernames.append(username)
+                            }
+                            if let point = object["location"] as? PFGeoPoint {
+                                let requestLocation = CLLocationCoordinate2DMake(point.latitude, point.longitude)
+                                self.locations.append(requestLocation)
+                                let requestCLLocation = CLLocation(latitude: requestLocation.latitude, longitude: requestLocation.longitude)
+                                let driverCLLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
+                                let distance = driverCLLocation.distanceFromLocation(requestCLLocation)
+                                self.distances.append(distance/1000) //distance is in meters. Divide by 1000 to get km.
+                            }
                         }
                     }
                     self.tableView.reloadData()
