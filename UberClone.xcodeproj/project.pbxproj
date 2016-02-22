@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		777C8CCA1C7A5B5700365CA7 /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		77E2EA391C779FDA00759E1C /* RiderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiderViewController.swift; sourceTree = "<group>"; };
-		77E2EA3B1C77CAD400759E1C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../ParseStarterProject/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		77E2EA3B1C77CAD400759E1C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../UberClone/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		77E2EA3D1C79902100759E1C /* DriverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverTableViewController.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -99,8 +99,7 @@
 				777C8CCA1C7A5B5700365CA7 /* RequestViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 			);
-			name = UberClone;
-			path = ParseStarterProject;
+			path = UberClone;
 			sourceTree = "<group>";
 		};
 		81BA816A1A49DB5600E65899 /* Frameworks */ = {
