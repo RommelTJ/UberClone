@@ -36,7 +36,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(animated: Bool) {
         if PFUser.currentUser()?.username != nil {
-            self.performSegueWithIdentifier("loginRiderSegue", sender: self)
+            if PFUser.currentUser()!["isDriver"] as! Bool == true {
+                self.performSegueWithIdentifier("loginDriverSegue", sender: self)
+            } else {
+                self.performSegueWithIdentifier("loginRiderSegue", sender: self)
+            }
         }
     }
 
@@ -62,13 +66,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         let errorString = error.userInfo["error"] as? String
                         self.displayAlert("Sign Up Failed", message: errorString!)
                     } else {
-                        self.performSegueWithIdentifier("loginRiderSegue", sender: self)
+                        if user["isDriver"] as! Bool == true {
+                            self.performSegueWithIdentifier("loginDriverSegue", sender: self)
+                        } else {
+                            self.performSegueWithIdentifier("loginRiderSegue", sender: self)
+                        }
+                        
                     }
                 }
             } else {
                 PFUser.logInWithUsernameInBackground(username.text!, password: password.text!, block: { (user: PFUser?, error: NSError?) -> Void in
                     if user != nil {
-                        self.performSegueWithIdentifier("loginRiderSegue", sender: self)
+                        if user!["isDriver"] as! Bool == true {
+                            self.performSegueWithIdentifier("loginDriverSegue", sender: self)
+                        } else {
+                            self.performSegueWithIdentifier("loginRiderSegue", sender: self)
+                        }
                     } else {
                         if let errorString = error?.userInfo["error"] as? String {
                             self.displayAlert("Log In Failed", message: errorString)
